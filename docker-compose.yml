@@ -1,0 +1,14 @@
+version: '2.1'
+services:
+  amule:
+    image: minnyres/amule-dlp
+    network_mode: host
+    environment:
+      - UID=1000
+      - GID=1000
+      - WEBUI=bootstrap
+      - ECPASSWD=amule-passwd
+    volumes:
+      - <config>:/config
+      - <downloads>:/downloads
+      - <temp>:/temp
