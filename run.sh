@@ -20,6 +20,11 @@ then
     sed -i "s/.*ECPassword=.*/ECPassword=$passwd/" $config
 fi
 
+if [ -n "$TIMEZONE" ]
+then
+    ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
+fi
+
 groupadd -g $GID amule
 useradd amule -u $UID -g $GID -m -s /bin/bash
 chown -R amule:amule /config /downloads /temp

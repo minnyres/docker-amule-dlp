@@ -8,6 +8,7 @@ services:
       - GID=1000
       - WEBUI=bootstrap
       - ECPASSWD=amule-passwd
+      - TIMEZONE=Asia/Shanghai
     volumes:
       - <config>:/config
       - <downloads>:/downloads

@@ -38,7 +38,7 @@ FROM debian:bullseye-slim
 
 COPY --from=builder /app /usr
 
-ENV UID=1000 GID=1000 WEBUI=bootstrap ECPASSWD=
+ENV UID=1000 GID=1000 WEBUI=bootstrap ECPASSWD= TIMEZONE=
 
 COPY amule.conf run.sh /
 
