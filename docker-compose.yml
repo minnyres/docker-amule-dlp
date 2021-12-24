@@ -1,7 +1,9 @@
 version: '2.1'
 services:
   amule:
+    container_name: amule
     image: minnyres/amule-dlp
+    restart: unless-stopped
     network_mode: host
     environment:
       - UID=1000
