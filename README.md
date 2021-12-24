@@ -41,6 +41,8 @@ In the `volumes` section, some parameters need to be replaced by the paths on th
 
 ### Environment variables
 
+Please carefully read the notes on the variables:
+
 | Variable      | Meaning | Notes     |
 | :----:        |    :---     |         :---   |
 | UID      |    User id    |  Given by `echo $UID`  |
