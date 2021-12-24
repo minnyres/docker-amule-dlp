@@ -46,7 +46,7 @@ In the `volumes` section, some parameters need to be replaced by the paths on th
 | UID      |    User id    |  Given by `echo $UID`  |
 | GID   | Usergroup id        | Given by `echo $GID`     |
 | WEBUI   | Web UI theme   | Can be default, [bootstrap](https://github.com/pedro77/amuleweb-bootstrap-template) or [reloaded](https://github.com/MatteoRagni/AmuleWebUI-Reloaded)     |
-| ECPASSWD   |   Password for external connection     |  You can connect to aMule daemon using aMule GUI with this password, bur keep in mind that it is not the password of web server. Once the container starts, the password will be persistently saved, and thus the line `- ECPASSWD=xxx` can be removed hereafter for security. |
+| ECPASSWD   |   Password for external connection     |  You can connect to aMule daemon using aMule GUI with this password, but keep in mind that it is not the password of web server. Once the container starts, the password will be persistently saved, and thus the line `- ECPASSWD=xxx` can be removed hereafter for security. |
 | TIMEZONE   | Time zone       |    |
 
 ### Bridge network
