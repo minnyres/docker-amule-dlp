@@ -1,5 +1,5 @@
 # docker-amule-dlp
-[aMule](https://github.com/amule-project/amule) is an eMule-like client for the eDonkey and Kademlia networks. This project maintains docker containers for the aMule fork [amule-dlp](https://github.com/persmule/amule-dlp), which adds the dynamic leech protection (DLP) features to aMule. Only aMule daemon and web server are enabled and GUI is disabled in the container. To control aMule, use aMule GUI for remote connection or use your web browswer to visit the web server.
+[aMule](https://github.com/amule-project/amule) is an eMule-like client for the eDonkey and Kademlia networks. This project maintains docker containers for the aMule fork [amule-dlp](https://github.com/persmule/amule-dlp), which adds the dynamic leech protection (DLP) feature to aMule. Only aMule daemon and web server are enabled and GUI is disabled in the container. To control aMule, use aMule GUI for remote connection or use your web browswer to visit the web server.
 
 Inspired by the work of [tetreum](https://github.com/tetreum/amule-docker) and [tchabaud](https://github.com/tchabaud/dockerfiles/tree/master/amule).
 
@@ -35,18 +35,16 @@ Then, start the container with the command
 In the `volumes` section, some parameters need to be replaced by the paths on the host system:
  + `<config>` - the folder for configuration files
  + `<downloads>` - the folder to save downloaded and shared files
- + `<temp>` - the folder to incomplete downloaded files
+ + `<temp>` - the folder for incomplete download files
 
 ### Environment variables
-
-The variables in the `environment` section can be modified following the guide:
 
 | Variable      | Meaning | Notes     |
 | :----:        |    :---     |         :---   |
 | UID      |    User id    |  Given by `echo $UID`  |
 | GID   | Usergroup id        | Given by `echo $GID`     |
 | WEBUI   | Web UI theme   | Can be default, [bootstrap](https://github.com/pedro77/amuleweb-bootstrap-template) or [reloaded](https://github.com/MatteoRagni/AmuleWebUI-Reloaded)     |
-| ECPASSWD   |   Password for external connection     |  You can connect to aMule daemon using aMule GUI with this password, bur keep in mind that it is not the password of web server. Default value is `amule-passwd`. Once the container starts, the password will be persistently saved, and thus the line `- ECPASSWD=xxx` can be removed hereafter for security. |
+| ECPASSWD   |   Password for external connection     |  You can connect to aMule daemon using aMule GUI with this password, bur keep in mind that it is not the password of web server. Once the container starts, the password will be persistently saved, and thus the line `- ECPASSWD=xxx` can be removed hereafter for security. |
 | TIMEZONE   | Time zone       |    |
 
 ### Bridge network
@@ -87,7 +85,7 @@ Under bridge network, one needs to enable port mapping for the following ports:
 The extended server request UDP port must be standard client TCP port + 3, while the other ports can be changed in aMule setting.
  
 ### Use official aMule
-There is also a support for the official aMule. To run the latest official release v2.3.3 without DLP, just change the option
+There is also an image for official aMule. To run the latest official release v2.3.3 without DLP, just change the option
  
      image: minnyres/amule-dlp:official-2.3.3
  
@@ -105,4 +103,4 @@ The settings of aMule is stored in the file `<temp>/amule.conf`. If the file alr
  + web UI theme: `bootstrap`
  + UPnP: `enabled` 
 
-To view and change the settings, one can connect to aMule with aMule GUI. Advanced users can directly edit the file `<temp>/amule.conf` when aMule is not running. Note that the web UI theme and password for external connection can not be changed with aMule GUI, not will be overwritten by the variables in `docker-compose.yml`.
+To view and change the settings, one can connect to aMule with aMule GUI. Advanced users can directly edit the file `<temp>/amule.conf` when aMule is not running. Note that the web UI theme and password for external connection can not be changed with aMule GUI, and will be overwritten by the variables in `docker-compose.yml`.
