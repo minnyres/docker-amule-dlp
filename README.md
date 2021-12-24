@@ -5,7 +5,7 @@ Inspired by the work of [tetreum](https://github.com/tetreum/amule-docker) and [
 
 ## Usage
 
-### docker-compose
+### Docker-compose
 The recommended way is to use docker-compose. Create a file `docker-compose.yml` and add the following lines to the file:
 
     version: '2.1'
@@ -30,14 +30,14 @@ Then, start the container with the command
 
     docker-compose up -d
 
-### volume mapping
+### Volume mapping
 
 In the `volumes` section, some parameters need to be replaced by the paths on the host system:
  + `<config>` - the folder for configuration files
  + `<downloads>` - the folder to save downloaded files
  + `<temp>` - the folder to partially downloaded files
 
-### environment variables
+### Environment variables
 
 The variables in the `environment` section can be modified following the guide:
 
@@ -46,10 +46,10 @@ The variables in the `environment` section can be modified following the guide:
 | UID      |    User id    |  Given by `echo $UID`  |
 | GID   | Usergroup id        | Given by `echo $GID`     |
 | WEBUI   | Web UI theme   | Can be default, [bootstrap](https://github.com/pedro77/amuleweb-bootstrap-template) or [reloaded](https://github.com/MatteoRagni/AmuleWebUI-Reloaded)     |
-| ECPASSWD   |   Password for remote connection with aMule GUI but not the password for web server     |  Default value is `amule-passwd`. Once you run the container, the password will be persistently saved, and thus the line `- ECPASSWD=xxx` can be removed hereafter for security. |
+| ECPASSWD   |   Password for external connection     |  You can connect to aMule daemon using aMule GUI with this password, bur keep in mind that it is not the password of web server. Default value is `amule-passwd`. Once you run the container, the password will be persistently saved, and thus the line `- ECPASSWD=xxx` can be removed hereafter for security. |
 | TIMEZONE   | Time zone       |    |
 
-### bridge network
+### Bridge network
 
 The above docker-compose configuration uses host network, which is necessary if UPnP is enabled. To use bridge network, edit `docker-compose.yml`:
 
@@ -84,10 +84,11 @@ Under bridge network, one needs to enable port mapping for the following ports:
  + `24672` - extended client UDP port
  + `24665` - extended server request UDP port
  
- The extended server request UDP port must be standard client TCP port + 3, while the other ports can be changed in aMule setting.
+The extended server request UDP port must be standard client TCP port + 3, while the other ports can be changed in aMule setting.
  
- ### run official aMule but not the DLP fork
- 
- There is also a support for the official aMule. To run the latest official release v2.3.3 without DLP, just change the option
+### Run official aMule but not the DLP fork
+There is also a support for the official aMule. To run the latest official release v2.3.3 without DLP, just change the option
  
      image: minnyres/amule-dlp:official-2.3.3
+ 
+ 
