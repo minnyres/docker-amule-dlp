@@ -93,7 +93,7 @@ There is also an image for official aMule. To run the latest official release v2
  
 ## aMule setting
 
-The settings of aMule is stored in the file `<config>/amule.conf`. If the file already exists, aMule will use the existing configuration file. Otherwise, aMule will create a new configuration file according to the default settings. Some of the default settings are listed below:
+The settings of aMule are stored in the file `<config>/amule.conf`. If the file already exists, aMule will use the existing configuration file. Otherwise, aMule will create a new configuration file according to the default settings. Some of the default settings are listed below:
 
  + port for aMule web server: `4711`
  + port for remote connection with aMule GUI: `4712`
