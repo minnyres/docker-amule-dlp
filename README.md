@@ -91,7 +91,7 @@ There is also an image for official aMule. To run the latest official release v2
  
 ## aMule setting
 
-The settings of aMule is stored in the file `<temp>/amule.conf`. If the file already exists, aMule will use the existing configuration file. Otherwise, aMule will create a new configuration file according to the default settings. Some of the default settings are listed below:
+The settings of aMule is stored in the file `<config>/amule.conf`. If the file already exists, aMule will use the existing configuration file. Otherwise, aMule will create a new configuration file according to the default settings. Some of the default settings are listed below:
 
  + port for aMule web server: `4711`
  + port for remote connection with aMule GUI: `4712`
@@ -103,4 +103,4 @@ The settings of aMule is stored in the file `<temp>/amule.conf`. If the file alr
  + web UI theme: `bootstrap`
  + UPnP: `enabled` 
 
-To view and change the settings, one can connect to aMule with aMule GUI. Advanced users can directly edit the file `<temp>/amule.conf` when aMule is not running. Note that the web UI theme and password for external connection can not be changed with aMule GUI, and will be overwritten by the variables in `docker-compose.yml`.
+To view and change the settings, one can connect to aMule with aMule GUI. Advanced users can directly edit the file `<config>/amule.conf` when aMule is not running. Note that the web UI theme and password for external connection can not be changed with aMule GUI, and will be overwritten by the variables in `docker-compose.yml`.
