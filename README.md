@@ -1,6 +1,8 @@
 # docker-amule-dlp
 [aMule](https://github.com/amule-project/amule) is an eMule-like client for the eDonkey and Kademlia networks. This project maintains docker containers for the aMule fork [amule-dlp](https://github.com/persmule/amule-dlp), which adds the dynamic leech protection (DLP) feature to aMule. Only aMule daemon and web server are enabled and GUI is disabled in the container. To control aMule, use aMule GUI for remote connection or use your web browswer to visit the web server.
 
+Supported architectures: `arm`, `arm64` and `amd64`.
+
 Inspired by the work of [tetreum](https://github.com/tetreum/amule-docker) and [tchabaud](https://github.com/tchabaud/dockerfiles/tree/master/amule).
 
 ## Usage
