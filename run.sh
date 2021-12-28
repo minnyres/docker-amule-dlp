@@ -20,6 +20,17 @@ then
     sed -i "s/.*ECPassword=.*/ECPassword=$passwd/" $config
 fi
 
+if [ "$RECURSIVE_SHARE" == "yes" ]
+then
+    find /downloads -type f -not -empty -printf "%h\n" \
+    | uniq \
+    | grep -v lost+found \
+    | grep -v .Trash \
+    | sort -ur > /config/shareddir.dat
+else
+    echo > /config/shareddir.dat
+fi
+
 if [ -n "$TIMEZONE" ]
 then
     ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime

@@ -17,6 +17,7 @@ services:
       - WEBUI=bootstrap
       - ECPASSWD=amule-passwd
       - TIMEZONE=Asia/Shanghai
+      - RECURSIVE_SHARE=yes
     volumes:
       - <config>:/config
       - <downloads>:/downloads
