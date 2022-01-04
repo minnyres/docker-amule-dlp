@@ -1,5 +1,5 @@
 # docker-amule-dlp
-[aMule](https://github.com/amule-project/amule) is an eMule-like client for the eDonkey and Kademlia networks. This project maintains docker containers for the aMule fork [amule-dlp](https://github.com/persmule/amule-dlp), which adds the dynamic leech protection (DLP) feature to aMule. Only aMule daemon and web server are enabled and GUI is disabled in the container. To control aMule, use aMule GUI for remote connection or use your web browswer to visit the web server.
+[aMule](https://github.com/amule-project/amule) is an eMule-like client for the eDonkey and Kademlia networks. This project maintains docker containers for the aMule fork [amule-dlp](https://github.com/persmule/amule-dlp), which supports dynamic leech protection (DLP). Only aMule daemon and web server are enabled and GUI is disabled in the container. To control aMule, use aMule GUI for remote connection or use your web browswer to visit the web server.
 
 Supported architectures: `arm`, `arm64` and `amd64`.
 
@@ -37,7 +37,7 @@ Then, start the container with the command
 
 In the `volumes` section, some parameters need to be replaced by the paths on the host system:
  + `<config>` - the directory for configuration files
- + `<downloads>` - the directory to save downloaded and shared files
+ + `<downloads>` - the directory for downloaded and shared files
  + `<temp>` - the directory for incomplete download files
 
 ### Environment variables
@@ -49,7 +49,7 @@ Please carefully read the notes on the variables:
 | UID      |    User id    |  Given by `echo $UID` on the host system  |
 | GID   | Usergroup id        | Given by `echo $GID` on the host system     |
 | WEBUI   | Web UI theme   | Can be default, [bootstrap](https://github.com/pedro77/amuleweb-bootstrap-template) or [reloaded](https://github.com/MatteoRagni/AmuleWebUI-Reloaded)     |
-| ECPASSWD   |   Password for external connection     |  This is the password for aMule GUI but not aMule web server. Once the container starts, the password will be persistently saved, and thus the line `- ECPASSWD=xxx` can be removed hereafter for security. |
+| ECPASSWD   |   Password for external connection     |  This is the password for aMule GUI but not web server. Once the container starts, the password will be persistently saved, and thus the line `- ECPASSWD=xxx` can be removed hereafter for security. |
 | TIMEZONE   | Time zone       |    |
 | RECURSIVE_SHARE   |   Whether to recursively share the files in the sub-folders of the path `<downloads>`     |   Can be `yes` no `no`  |
 
@@ -92,7 +92,7 @@ Under bridge network, one needs to enable port mapping for the following ports:
 The extended server request UDP port must be standard client TCP port + 3, while the other ports can be changed in aMule setting.
  
 ### Use official aMule
-There is also an image for official aMule. To run the latest official release v2.3.3 without DLP, just change the option
+This project also provides an image for official aMule. To run the latest official release v2.3.3 without DLP, just change the `image` option
  
      image: minnyres/amule-dlp:official-2.3.3
  
