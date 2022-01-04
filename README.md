@@ -8,7 +8,7 @@ Inspired by the work of [tetreum](https://github.com/tetreum/amule-docker) and [
 ## Usage
 
 ### Docker-compose
-The recommended way is to use docker-compose. Create a file `docker-compose.yml` and add the following lines to the file:
+The recommended way is to use docker-compose. Create and edit the file `docker-compose.yml` as the template
 
     version: '2.1'
     services:
@@ -23,6 +23,7 @@ The recommended way is to use docker-compose. Create a file `docker-compose.yml`
           - WEBUI=bootstrap
           - ECPASSWD=amule-passwd
           - TIMEZONE=Asia/Shanghai
+          - RECURSIVE_SHARE=yes
         volumes:
           - <config>:/config
           - <downloads>:/downloads
@@ -35,9 +36,9 @@ Then, start the container with the command
 ### Volume mapping
 
 In the `volumes` section, some parameters need to be replaced by the paths on the host system:
- + `<config>` - the folder for configuration files
- + `<downloads>` - the folder to save downloaded and shared files
- + `<temp>` - the folder for incomplete download files
+ + `<config>` - the directory for configuration files
+ + `<downloads>` - the directory to save downloaded and shared files
+ + `<temp>` - the directory for incomplete download files
 
 ### Environment variables
 
@@ -45,15 +46,16 @@ Please carefully read the notes on the variables:
 
 | Variable      | Meaning | Notes     |
 | :----:        |    :---     |         :---   |
-| UID      |    User id    |  Given by `echo $UID`  |
-| GID   | Usergroup id        | Given by `echo $GID`     |
+| UID      |    User id    |  Given by `echo $UID` on the host system  |
+| GID   | Usergroup id        | Given by `echo $GID` on the host system     |
 | WEBUI   | Web UI theme   | Can be default, [bootstrap](https://github.com/pedro77/amuleweb-bootstrap-template) or [reloaded](https://github.com/MatteoRagni/AmuleWebUI-Reloaded)     |
-| ECPASSWD   |   Password for external connection     |  You can connect to aMule daemon using aMule GUI with this password, but keep in mind that it is not the password of web server. Once the container starts, the password will be persistently saved, and thus the line `- ECPASSWD=xxx` can be removed hereafter for security. |
+| ECPASSWD   |   Password for external connection     |  This is the password for aMule GUI but not aMule web server. Once the container starts, the password will be persistently saved, and thus the line `- ECPASSWD=xxx` can be removed hereafter for security. |
 | TIMEZONE   | Time zone       |    |
+| RECURSIVE_SHARE   |   Whether to recursively share the files in the sub-folders of the path `<downloads>`     |   Can be `yes` no `no`  |
 
 ### Bridge network
 
-The above docker-compose configuration uses host network, which is necessary if UPnP is enabled. To use bridge network, edit `docker-compose.yml`:
+The above docker-compose configuration uses host network, which is necessary if UPnP is enabled. To use bridge network, use the following template:
 
     version: '2.1'
     services:
@@ -74,6 +76,7 @@ The above docker-compose configuration uses host network, which is necessary if 
           - WEBUI=bootstrap
           - ECPASSWD=amule-passwd
           - TIMEZONE=Asia/Shanghai
+          - RECURSIVE_SHARE=yes
         volumes:
           - <config>:/config
           - <downloads>:/downloads
