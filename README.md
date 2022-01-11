@@ -3,7 +3,7 @@
 
 Supported architectures: `arm`, `arm64` and `amd64`.
 
-Inspired by the work of [tetreum](https://github.com/tetreum/amule-docker) and [tchabaud](https://github.com/tchabaud/dockerfiles/tree/master/amule).
+Inspired by the work of [tetreum](https://github.com/tetreum/amule-docker), [tchabaud](https://github.com/tchabaud/dockerfiles/tree/master/amule) and [ngosang](https://github.com/ngosang/docker-amule).
 
 ## Usage
 
