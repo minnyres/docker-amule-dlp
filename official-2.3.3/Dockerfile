@@ -11,7 +11,7 @@ RUN mkdir /amule-build \
     && wget http://prdownloads.sourceforge.net/amule/aMule-2.3.3.tar.xz \
     && tar -xf aMule-2.3.3.tar.xz \
     && cd aMule-2.3.3 \
-    && ./configure --prefix=/app --disable-monolithic --enable-amule-daemon --enable-webserver --disable-amulecmd --disable-amule-gui --disable-ed2k --disable-cas --disable-wxcas --disable-alc --disable-alcc --disable-fileview --enable-geoip --disable-debug --enable-optimize --enable-mmap --with-wx-prefix=/app --with-wx-config=/app/bin/wx-config --with-boost \
+    && ./configure --prefix=/app --disable-monolithic --enable-amule-daemon --enable-webserver --disable-amulecmd --disable-amule-gui --disable-ed2k --disable-cas --disable-wxcas --disable-alc --disable-alcc --disable-fileview --enable-geoip --disable-debug --enable-optimize --enable-mmap --with-boost \
     && make install \
     && make clean
 
