@@ -3,9 +3,7 @@ name: Docker Image CI
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+    
 jobs:
 
   build:
@@ -13,6 +11,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
     - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
+      with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1.0.1
+          
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          platforms: linux/arm,linux/arm64,linux/amd64
+          tags: minnyres/amule-dlp:latest
