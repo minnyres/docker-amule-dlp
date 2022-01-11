@@ -6,7 +6,8 @@ RUN buildDeps='g++ git libtool-bin libtool autoconf automake make flex bison wge
     && apt install -y $buildDeps
 
 # Build amuled and amuleweb
-RUN cd /amule-build \
+RUN mkdir /amule-build \
+    && cd /amule-build \
     && wget http://prdownloads.sourceforge.net/amule/aMule-2.3.3.tar.xz \
     && tar -xf aMule-2.3.3.tar.xz \
     && cd aMule-2.3.3 \
