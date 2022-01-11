@@ -1,19 +1,9 @@
 FROM debian:bullseye-slim as builder
 
 # Install required packages
-RUN buildDeps='g++ git libtool-bin libtool autoconf automake make flex bison wget bzip2 xz-utils gettext pkg-config autopoint zlib1g-dev libupnp-dev libpng-dev libcrypto++-dev libboost-system-dev libboost-dev libgeoip-dev' \
+RUN buildDeps='g++ git libtool-bin libtool autoconf automake make flex bison wget bzip2 xz-utils gettext pkg-config autopoint zlib1g-dev libupnp-dev libpng-dev libcrypto++-dev libboost-system-dev libboost-dev libgeoip-dev libwxbase3.0-dev' \
     && apt update \
     && apt install -y $buildDeps
-
-# Build wxBase
-RUN mkdir /amule-build \
-    && cd /amule-build \
-    && wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.5/wxWidgets-3.0.5.tar.bz2 \
-    && tar -xf wxWidgets-3.0.5.tar.bz2 \
-    && cd wxWidgets-3.0.5 \
-    && ./configure --prefix=/app --disable-gui --disable-debug_flag \
-    && make install \
-    && make clean
 
 # Build amuled and amuleweb
 RUN cd /amule-build \
@@ -39,11 +29,16 @@ FROM debian:bullseye-slim
 COPY --from=builder /app /usr
 
 ENV UID=1000 GID=1000 WEBUI=bootstrap ECPASSWD= TIMEZONE= RECURSIVE_SHARE=
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8 
 
 COPY amule.conf run.sh /
 
 RUN apt update \
-    && apt install -y libupnp13 libixml10 libcrypto++8 libpng16-16 \
+    && apt install -y libupnp13 libixml10 libcrypto++8 libpng16-16 libwxbase3.0-0v5 locales \
+    && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
+    && locale-gen \
     && apt clean autoclean \
     && apt autoremove --yes \
     && rm -rf /var/{cache,log}/ \
