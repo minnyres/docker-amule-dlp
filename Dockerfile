@@ -50,7 +50,7 @@ COPY --from=builder /app /usr
 
 ENV UID=1000 GID=1000 WEBUI=bootstrap ECPASSWD= TIMEZONE= RECURSIVE_SHARE=
 ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US:en  
+ENV LANGUAGE en_US.UTF-8
 ENV LC_ALL en_US.UTF-8 
 
 COPY amule.conf run.sh /
