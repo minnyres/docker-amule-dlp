@@ -3,7 +3,8 @@ FROM debian:bullseye-slim as builder
 # Install required packages
 RUN buildDeps='g++ git libtool-bin libtool autoconf automake make flex bison wget bzip2 xz-utils gettext pkg-config autopoint zlib1g-dev libupnp-dev libpng-dev libcrypto++-dev libboost-system-dev libboost-dev libgeoip-dev libwxbase3.0-dev' \
     && apt update \
-    && apt install -y $buildDeps
+    && apt install -y $buildDeps \
+    && apt build-dep amule
 
 # Build amuled and amuleweb
 RUN mkdir /amule-build \
