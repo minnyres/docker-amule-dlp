@@ -39,7 +39,7 @@ ENV LC_ALL en_US.UTF-8
 COPY amule.conf run.sh /
 
 RUN apt update \
-    && apt install -y libupnp13 libixml10 libcrypto++8 libpng16-16 libwxbase3.0-0v5 locales \
+    && apt install -y libupnp13 libixml10 libcrypto++8 libpng16-16 libwxbase3.0-0v5 locales libreadline8 \
     && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
     && locale-gen \
     && apt clean autoclean \
