@@ -38,6 +38,6 @@ fi
 
 groupadd -g $GID amule
 useradd amule -u $UID -g $GID -m -s /bin/bash
-chown -R amule:amule /config /downloads /temp
+chown -R $UID:$GID /config /downloads /temp
 
 su - amule -c 'amuled --config-dir=/config --log-stdout'
