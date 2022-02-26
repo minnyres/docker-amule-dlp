@@ -89,7 +89,7 @@ Under bridge network, one needs to enable port mapping for the following ports:
  + `24672` - extended client UDP port
  + `24665` - extended server request UDP port
  
-The extended server request UDP port must be standard client TCP port + 3, while the other ports can be changed in aMule setting.
+The extended server request UDP port must be standard client TCP port + 3, while the other ports can be modified in aMule setting.
  
 ### Use official aMule
 This project also provides an image for official aMule. To run the latest official release v2.3.3 without DLP, just change the `image` option
@@ -105,9 +105,7 @@ The settings of aMule are stored in the file `<config>/amule.conf`. If the file 
  + standard client TCP port: `24662`
  + extended client UDP port: `24672`
  + extended server request UDP port: `24665`
- + password for external connection: `amule-passwd`
  + web server password: `amuleweb-passwd`
- + web UI theme: `bootstrap`
  + UPnP: `enabled` 
 
-To view and change the settings, one can connect to aMule with aMule GUI. Advanced users can directly edit the file `<config>/amule.conf` when aMule is not running. Note that the web UI theme and password for external connection can not be changed with aMule GUI, and will be overwritten by the variables in `docker-compose.yml`.
+To view and change the settings, one can connect to aMule with aMule GUI. Advanced users can directly edit the file `<config>/amule.conf` when aMule is not running. 
