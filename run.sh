@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 config="/config/amule.conf"
 
@@ -33,7 +33,7 @@ fi
 
 if [ -n "$TIMEZONE" ]
 then
-    ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
+    ln -sf /etc/zoneinfo/$TIMEZONE /etc/localtime
 fi
 
 groupadd -g $GID amule

@@ -1,30 +1,39 @@
-FROM debian:bullseye-slim as builder
+FROM alpine:latest as builder
 
 # Install required packages
-RUN buildDeps='g++ git libtool-bin libtool autoconf automake make flex bison wget bzip2 xz-utils gettext pkg-config autopoint zlib1g-dev libupnp-dev libpng-dev libcrypto++-dev libboost-system-dev libboost-dev libgeoip-dev libwxbase3.0-dev' \
-    && echo "deb-src http://deb.debian.org/debian bullseye main" >> /etc/apt/sources.list \ 
-    && apt update \
-    && apt install -y $buildDeps \
-    && apt build-dep -y amule
+RUN buildDeps='g++ git bash patch file libtool automake make flex bison wget xz p7zip gettext-dev pkgconf zlib-dev libpng-dev boost-dev geoip-dev' \
+    && apk add --no-cache $buildDeps \
+    && mkdir -p /amule-build /app/lib
+    
+COPY cryptopp.sh wxbase.sh upnp.sh autoconf.sh amule-fix-exception.patch /amule-build/
+
+# Build dependencies
+RUN cd /amule-build \
+    && chmod 755 *.sh \
+    && ./autoconf.sh \
+    && ./wxbase.sh \
+    && ./upnp.sh \
+    && ./cryptopp.sh 
 
 # Build amuleweb
-RUN mkdir /amule-build \
-    && cd /amule-build \
+RUN cd /amule-build \
     && wget http://prdownloads.sourceforge.net/amule/aMule-2.3.3.tar.xz \
     && tar -xf aMule-2.3.3.tar.xz \
     && cd aMule-2.3.3 \
-    && ./configure --prefix=/app --disable-monolithic --disable-amule-daemon --enable-webserver --disable-amulecmd --disable-amule-gui --disable-ed2k --disable-cas --disable-wxcas --disable-alc --disable-alcc --disable-fileview --enable-geoip --disable-debug --enable-optimize --enable-mmap --with-boost \
-    && make install \
-    && make clean
+    && patch -p0  < /amule-build/amule-fix-exception.patch \
+    && ./configure --prefix=/app --disable-monolithic --disable-amule-daemon --enable-webserver --disable-amulecmd --disable-amule-gui --disable-ed2k --disable-cas --disable-wxcas --disable-alc --disable-alcc --disable-fileview --enable-geoip --disable-debug --enable-optimize --enable-mmap --with-boost --with-denoise-level=0 \
+    && make install -j$(nproc) \
+    && make clean 
 
 # Build amuled with DLP
 RUN cd /amule-build \
     && git clone https://github.com/persmule/amule-dlp.git \
     && cd amule-dlp \
+    && patch -p0 < /amule-build/amule-fix-exception.patch \
     && ./autogen.sh \
-    && ./configure --prefix=/app --disable-monolithic --enable-amule-daemon --disable-webserver --disable-amulecmd --disable-amule-gui --disable-ed2k --disable-cas --disable-wxcas --disable-alc --disable-alcc --disable-fileview --enable-geoip --disable-debug --enable-optimize --enable-mmap --with-boost \
-    && make install \
-    && make clean
+    && ./configure --prefix=/app --disable-monolithic --enable-amule-daemon --disable-webserver --disable-amulecmd --disable-amule-gui --disable-ed2k --disable-cas --disable-wxcas --disable-alc --disable-alcc --disable-fileview --enable-geoip --disable-debug --enable-optimize --enable-mmap --with-boost --with-denoise-level=0 \
+    && make install -j$(nproc) \
+    && make clean 
 
 # Build DLP lib
 RUN cd /amule-build \
@@ -46,27 +55,19 @@ RUN cd /amule-build \
 
 #################################
 
-FROM debian:bullseye-slim
+FROM alpine:latest
 
 COPY --from=builder /app /usr
 
-ENV UID=1000 GID=1000 WEBUI=bootstrap ECPASSWD= TIMEZONE= RECURSIVE_SHARE=
-ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US.UTF-8
-ENV LC_ALL en_US.UTF-8 
+ENV UID=1000 GID=1000 WEBUI=bootstrap ECPASSWD= TIMEZONE= RECURSIVE_SHARE= 
 
 COPY amule.conf run.sh /
 
-RUN apt update \
-    && apt install -y libupnp13 libixml10 libcrypto++8 libpng16-16 libwxbase3.0-0v5 libreadline8 locales \
-    && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
-    && locale-gen \
-    && apt clean autoclean \
-    && apt autoremove --yes \
-    && rm -rf /var/{cache,log}/ \
-    && rm -rf /var/lib/apt/lists/* \
+RUN apk add --no-cache libgcc libintl libpng libstdc++ musl zlib tzdata   \
     && mkdir /config /downloads /temp \
-    && chmod 755 /run.sh
+    && chmod 755 /run.sh \
+    && ldd /usr/bin/amuled \
+    && ldd /usr/bin/amuleweb 
 
 VOLUME /config /downloads /temp
 
