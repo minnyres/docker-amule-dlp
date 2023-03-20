@@ -36,8 +36,8 @@ then
     ln -sf /etc/zoneinfo/$TIMEZONE /etc/localtime
 fi
 
-groupadd -g $GID amule
-useradd amule -u $UID -g $GID -m -s /bin/bash
+addgroup -g $GID amule
+adduser amule -u $UID -G amule -D -s /bin/sh
 chown -R $UID:$GID /config /downloads /temp
 
 su - amule -c 'amuled --config-dir=/config --log-stdout'
