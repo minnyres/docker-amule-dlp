@@ -22,7 +22,7 @@ fi
 
 if [ "$RECURSIVE_SHARE" == "yes" ]
 then
-    find /downloads -type f -not -empty -printf "%h\n" \
+    find /downloads -type d -not -empty \
     | uniq \
     | grep -v lost+found \
     | grep -v .Trash \
