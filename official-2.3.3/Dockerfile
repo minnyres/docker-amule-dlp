@@ -23,7 +23,8 @@ RUN cd /amule-build \
     && patch -p0 < /amule-build/amule-fix-exception.patch \
     && ./configure --prefix=/app --disable-monolithic --enable-amule-daemon --enable-webserver --disable-amulecmd --disable-amule-gui --disable-ed2k --disable-cas --disable-wxcas --disable-alc --disable-alcc --disable-fileview --disable-debug --enable-optimize --enable-mmap --with-boost --with-denoise-level=0  \
     && make install -j$(nproc) \
-    && make clean
+    && make clean \
+    && strip /app/bin/*
 
 # Install some webui theme
 RUN cd /amule-build \

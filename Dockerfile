@@ -33,7 +33,8 @@ RUN cd /amule-build \
     && ./autogen.sh \
     && ./configure --prefix=/app --disable-monolithic --enable-amule-daemon --disable-webserver --disable-amulecmd --disable-amule-gui --disable-ed2k --disable-cas --disable-wxcas --disable-alc --disable-alcc --disable-fileview --enable-geoip --disable-debug --enable-optimize --enable-mmap --with-boost --with-denoise-level=0 \
     && make install -j$(nproc) \
-    && make clean 
+    && make clean \
+    && strip /app/bin/*
 
 # Build DLP lib
 RUN cd /amule-build \
@@ -43,7 +44,8 @@ RUN cd /amule-build \
     && export PATH=$PATH:/app/bin \
     && ./configure --prefix=/app \
     && make install \
-    && make clean
+    && make clean \
+    && strip --strip-all /app/share/amule/libantiLeech.so
 
 # Install some webui theme
 RUN cd /amule-build \
