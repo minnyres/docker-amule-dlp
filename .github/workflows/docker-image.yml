@@ -31,5 +31,5 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          platforms: linux/arm,linux/arm64,linux/amd64
+          platforms: linux/arm/v7,linux/arm64/v8,linux/amd64
           tags: minnyres/amule-dlp:latest

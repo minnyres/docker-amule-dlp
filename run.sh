@@ -33,7 +33,7 @@ fi
 
 if [ -n "$TIMEZONE" ]
 then
-    ln -sf /etc/zoneinfo/$TIMEZONE /etc/localtime
+    ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 fi
 
 addgroup -g $GID amule
