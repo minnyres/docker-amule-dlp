@@ -40,12 +40,9 @@ RUN cd /amule-build \
 RUN cd /amule-build \
     && git clone https://github.com/persmule/amule-dlp.antiLeech.git \
     && cd amule-dlp.antiLeech \
-    && ./autogen.sh \
-    && export PATH=$PATH:/app/bin \
-    && ./configure --prefix=/app \
-    && make install \
-    && make clean \
-    && strip --strip-all /app/share/amule/libantiLeech.so
+    && g++ -g0 -Os -s -fPIC -shared antiLeech.cpp antiLeech_wx.cpp Interface.cpp -o libantiLeech.so $(wx-config --cppflags) $(wx-config --libs) \
+    && mv libantiLeech.so /app/share/amule/libantiLeech.so
+
 
 # Install some webui theme
 RUN cd /amule-build \
