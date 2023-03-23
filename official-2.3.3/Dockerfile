@@ -34,6 +34,11 @@ RUN cd /amule-build \
     && rm -rf AmuleWebUI-Reloaded/.git* AmuleWebUI-Reloaded/doc-images \
     && mv AmuleWebUI-Reloaded /app/share/amule/webserver/reloaded
 
+# Delete some files to reduce image size
+RUN cd /app/share \
+    && rm -rf locale doc man cas applications pixmaps \
+    && du -h -d 2 /app
+
 #################################
 
 FROM alpine:latest
