@@ -6,8 +6,9 @@ autoconf_version="2.69"
 wget https://mirrors.sarata.com/gnu/autoconf/autoconf-${autoconf_version}.tar.xz
 tar -xf autoconf-${autoconf_version}.tar.xz
 cd autoconf-${autoconf_version}
+cp /amule-build/config.* build-aux
 
-./configure --prefix=/usr --build=$(gcc -dumpmachine) --host=$(gcc -dumpmachine)
+./configure --prefix=/usr 
 make -j$(nproc)
 make install 
 make clean

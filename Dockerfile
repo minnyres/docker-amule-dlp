@@ -5,7 +5,7 @@ RUN buildDeps='g++ git bash patch file libtool automake make flex bison wget xz 
     && apk add --no-cache $buildDeps \
     && mkdir -p /amule-build /app/lib
     
-COPY cryptopp.sh wxbase.sh upnp.sh autoconf.sh amule-fix-exception.patch /amule-build/
+COPY cryptopp.sh wxbase.sh upnp.sh autoconf.sh amule-fix-exception.patch config.sub config.guess /amule-build/
 
 # Build dependencies
 RUN cd /amule-build \
