@@ -4,8 +4,10 @@ on:
   workflow_dispatch:
     
 jobs:
-
   build:
+    strategy:
+      matrix:
+        platform: [linux/amd64, linux/arm/v6, linux/arm/v7, linux/arm64/v8, linux/ppc64le, linux/s390x, linux/riscv64]
 
     runs-on: ubuntu-latest
 
@@ -18,6 +20,14 @@ jobs:
       with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+    - name: setValues
+      id: setValues
+      run: |
+        arch=${{ matrix.platform }}
+        arch=${arch#*/}
+        arch=$(echo $arch | sed 's/\//-/g')
+        echo "CPU_ARCH=${arch}" >> $GITHUB_OUTPUT
           
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1.0.1
@@ -31,5 +41,5 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          platforms: linux/arm/v7,linux/arm64/v8,linux/amd64
-          tags: minnyres/amule-dlp:latest
+          platforms: ${{ matrix.platform }}
+          tags: minnyres/amule-dlp:${{ steps.setValues.outputs.CPU_ARCH }}
