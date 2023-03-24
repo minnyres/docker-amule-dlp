@@ -1,4 +1,4 @@
-FROM alpine:edge as builder
+FROM alpine:latest as builder
 
 # Install required packages
 RUN buildDeps='g++ git bash patch file libtool automake make flex bison wget xz unzip gettext-dev pkgconf zlib-dev libpng-dev boost-dev geoip-dev' \
@@ -59,7 +59,7 @@ RUN cd /app/share \
 
 #################################
 
-FROM alpine:edge
+FROM alpine:latest
 
 COPY --from=builder /app /usr
 
