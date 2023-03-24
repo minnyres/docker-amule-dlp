@@ -7,6 +7,7 @@ wxbase_version="3.0.5"
 wget https://github.com/wxWidgets/wxWidgets/releases/download/v${wxbase_version}/wxWidgets-${wxbase_version}.tar.bz2
 tar -xf wxWidgets-${wxbase_version}.tar.bz2
 cd wxWidgets-${wxbase_version}
+cp /amule-build/config.* .
 
 ./configure --prefix=/usr --with-zlib=sys  \
     --enable-shared --disable-gui --disable-debug_flag --enable-optimise --enable-unicode --enable-monolithic
