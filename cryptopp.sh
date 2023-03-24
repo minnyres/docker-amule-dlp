@@ -12,7 +12,7 @@ tar -xf cryptopp-autotools-${cryptopp_autotools}.tar.gz
 
 mkdir -p cryptopp
 cd cryptopp
-7z x ../${cryptopp}.zip
+unzip ../${cryptopp}.zip
 
 mv ../cryptopp-autotools-${cryptopp_autotools}/* .
 mkdir -p m4

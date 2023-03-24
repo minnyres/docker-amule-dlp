@@ -1,7 +1,7 @@
-FROM alpine:latest as builder
+FROM alpine:edge as builder
 
 # Install required packages
-RUN buildDeps='g++ git bash patch file libtool automake make flex bison wget xz p7zip gettext-dev pkgconf zlib-dev libpng-dev boost-dev geoip-dev' \
+RUN buildDeps='g++ git bash patch file libtool automake make flex bison wget xz unzip gettext-dev pkgconf zlib-dev libpng-dev boost-dev geoip-dev' \
     && apk add --no-cache $buildDeps \
     && mkdir -p /amule-build /app/lib
     
@@ -59,7 +59,7 @@ RUN cd /app/share \
 
 #################################
 
-FROM alpine:latest
+FROM alpine:edge
 
 COPY --from=builder /app /usr
 
