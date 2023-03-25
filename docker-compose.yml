@@ -2,7 +2,7 @@ version: '2.1'
 services:
   amule:
     container_name: amule
-    image: minnyres/amule-dlp
+    image: minnyres/amule-dlp:latest
     restart: unless-stopped
     network_mode: host
     environment:

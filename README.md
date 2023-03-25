@@ -1,9 +1,16 @@
 # docker-amule-dlp
 [aMule](https://github.com/amule-project/amule) is an eMule-like client for the eDonkey and Kademlia networks. This project maintains docker containers for the aMule fork [amule-dlp](https://github.com/persmule/amule-dlp), which supports dynamic leech protection (DLP). Only aMule daemon and web server are enabled and GUI is disabled in the container. To control aMule, use aMule GUI for remote connection or use your web browswer to visit the web server.
 
-Supported architectures: `arm`, `arm64` and `amd64`.
-
 Inspired by the work of [tetreum](https://github.com/tetreum/amule-docker), [tchabaud](https://github.com/tchabaud/dockerfiles/tree/master/amule) and [ngosang](https://github.com/ngosang/docker-amule).
+
+Supported architectures: 
+* linux/amd64
+* linux/arm/v6
+* linux/arm/v7
+* linux/arm64
+* linux/ppc64le
+* linux/s390x
+* linux/riscv64
 
 ## Usage
 
@@ -14,7 +21,7 @@ The recommended way is to use docker-compose. Create and edit the file `docker-c
     services:
       amule:
         container_name: amule
-        image: minnyres/amule-dlp
+        image: minnyres/amule-dlp:latest
         restart: unless-stopped
         network_mode: host
         environment:
@@ -61,7 +68,7 @@ The above docker-compose configuration uses host network, which is necessary if 
     services:
       amule:
         container_name: amule
-        image: minnyres/amule-dlp
+        image: minnyres/amule-dlp:latest
         restart: unless-stopped
         network_mode: bridge
         ports:
