@@ -8,6 +8,7 @@ jobs:
     strategy:
       matrix:
         platform: [linux/amd64, linux/arm/v6, linux/arm/v7, linux/arm64/v8, linux/ppc64le, linux/s390x, linux/riscv64]
+        amule_version: [dlp, official-2.3.3]
 
     runs-on: ubuntu-latest
 
@@ -39,7 +40,9 @@ jobs:
       uses: docker/build-push-action@v2
       with:
           context: ./
-          file: ./Dockerfile
+          file: ./${{ matrix.amule_version }}/Dockerfile
           push: true
           platforms: ${{ matrix.platform }}
-          tags: minnyres/amule-dlp:${{ steps.setValues.outputs.CPU_ARCH }}
+          tags: minnyres/amule-dlp:${{ matrix.amule_version }}-${{ steps.setValues.outputs.CPU_ARCH }}
+          provenance: false
+          sbom: false
