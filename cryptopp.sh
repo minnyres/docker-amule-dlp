@@ -5,7 +5,7 @@ set -e
 cryptopp="cryptopp870"
 cryptopp_autotools="CRYPTOPP_8_7_0"
 
-wget http://cryptopp.com/${cryptopp}.zip
+wget https://github.com/weidai11/cryptopp/releases/download/${cryptopp_autotools}/${cryptopp}.zip
 wget https://github.com/noloader/cryptopp-autotools/archive/refs/tags/${cryptopp_autotools}.tar.gz -O cryptopp-autotools-${cryptopp_autotools}.tar.gz
 
 tar -xf cryptopp-autotools-${cryptopp_autotools}.tar.gz
