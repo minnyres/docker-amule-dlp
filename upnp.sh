@@ -2,7 +2,7 @@
 
 set -e
 
-upnp_version="1.14.15"
+upnp_version="1.14.20"
 
 wget https://github.com/pupnp/pupnp/releases/download/release-${upnp_version}/libupnp-${upnp_version}.tar.bz2
 tar -xf libupnp-${upnp_version}.tar.bz2
