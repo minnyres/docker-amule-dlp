@@ -2,7 +2,7 @@
 
 set -e
 
-wxbase_version="3.0.5"
+wxbase_version="3.2.7"
 
 wget https://github.com/wxWidgets/wxWidgets/releases/download/v${wxbase_version}/wxWidgets-${wxbase_version}.tar.bz2
 tar -xf wxWidgets-${wxbase_version}.tar.bz2
