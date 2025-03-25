@@ -40,7 +40,8 @@ jobs:
       uses: docker/build-push-action@v4
       with:
           context: ./
-          file: ./${{ matrix.amule_version }}/Dockerfile
+          build-args: amule_version=${{ matrix.amule_version }}
+          file: ./Dockerfile
           push: true
           platforms: ${{ matrix.platform }}
           tags: minnyres/amule-dlp:${{ matrix.amule_version }}-${{ steps.setValues.outputs.CPU_ARCH }}

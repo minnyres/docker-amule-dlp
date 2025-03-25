@@ -1,11 +1,13 @@
 FROM alpine:edge as builder
 
+ARG amule_version="dlp"
+
 # Install required packages
 RUN buildDeps='g++ git bash patch file libtool automake autoconf make flex bison wget xz unzip gettext-dev pkgconf zlib-dev libpng-dev boost-dev geoip-dev' \
     && apk add --no-cache $buildDeps \
     && mkdir -p /amule-build /app/lib
     
-COPY cryptopp.sh wxbase.sh upnp.sh autoconf.sh amule-fix-exception.patch config.sub config.guess /amule-build/
+COPY cryptopp.sh amule.sh wxbase.sh upnp.sh autoconf.sh amule-fix-exception.patch config.sub config.guess /amule-build/
 
 # Build dependencies
 RUN cd /amule-build \
@@ -14,18 +16,9 @@ RUN cd /amule-build \
     && ./upnp.sh \
     && ./cryptopp.sh 
 
-# Build amuled and amuleweb
+# Build amule and amule-dlp
 RUN cd /amule-build \
-    && wget http://prdownloads.sourceforge.net/amule/aMule-2.3.3.tar.xz \
-    && tar -xf aMule-2.3.3.tar.xz \
-    && cd aMule-2.3.3 \
-    && wget https://github.com/amule-project/amule/pull/298/commits/40810d2fba2c2092efca84ed7f2017fddbb70ebd.patch \
-    && patch -p1 < 40810d2fba2c2092efca84ed7f2017fddbb70ebd.patch \
-    && patch -p0 < /amule-build/amule-fix-exception.patch \
-    && ./configure --prefix=/app --disable-monolithic --enable-amule-daemon --enable-webserver --disable-amulecmd --disable-amule-gui --disable-ed2k --disable-cas --disable-wxcas --disable-alc --disable-alcc --disable-fileview --disable-debug --enable-optimize --enable-mmap --with-boost --with-denoise-level=0  \
-    && make install -j$(nproc) \
-    && make clean \
-    && strip /app/bin/*
+    && ./amule.sh ${amule_version}
 
 # Install some webui theme
 RUN cd /amule-build \
