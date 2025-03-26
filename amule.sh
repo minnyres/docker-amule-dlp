@@ -19,6 +19,7 @@ make install -j$(nproc)
 make clean 
 
 if [ "$1" != "dlp" ]; then
+  strip /app/bin/*
   exit 0
 fi
 
