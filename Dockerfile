@@ -1,4 +1,6 @@
-FROM alpine:edge as builder
+ARG image_tag="alpine:edge"
+
+FROM ${image_tag} as builder
 
 ARG amule_version="dlp"
 
@@ -35,7 +37,7 @@ RUN cd /app/share \
 
 #################################
 
-FROM alpine:edge
+FROM ${image_tag} 
 
 COPY --from=builder /app /usr
 
@@ -43,7 +45,9 @@ ENV UID=1000 GID=1000 WEBUI=bootstrap ECPASSWD= TIMEZONE= RECURSIVE_SHARE=
 
 COPY amule.conf run.sh /
 
-RUN apk add --no-cache libgcc libintl libpng libstdc++ musl zlib tzdata   \
+ARG boost_library
+
+RUN apk add --no-cache libgcc libintl libpng libstdc++ musl zlib tzdata ${boost_library}   \
     && mkdir /config /downloads /temp \
     && chmod 755 /run.sh \
     && ldd /usr/bin/amuled \

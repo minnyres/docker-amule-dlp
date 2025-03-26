@@ -7,7 +7,7 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [linux/amd64, linux/arm/v6, linux/arm/v7, linux/arm64/v8, linux/ppc64le, linux/s390x, linux/riscv64]
+        platform: [linux/amd64, linux/arm/v6, linux/arm/v7, linux/arm64/v8, linux/ppc64le, linux/s390x, linux/riscv64, linux/loong64]
         amule_version: [dlp, official-2.3.3]
 
     runs-on: ubuntu-latest
@@ -29,6 +29,13 @@ jobs:
         arch=${arch#*/}
         arch=$(echo $arch | sed 's/\//-/g')
         echo "CPU_ARCH=${arch}" >> $GITHUB_OUTPUT
+        if [ ${{ matrix.platform }} = "linux/loong64" ]; then
+          echo "IMAGE_TAG=loongarch64/alpine:3.19" >> $GITHUB_OUTPUT
+          echo "BOOST_LIBRARY=boost1.84-system" >> $GITHUB_OUTPUT
+        else
+          echo "IMAGE_TAG=alpine:edge" >> $GITHUB_OUTPUT
+          echo "BOOST_LIBRARY=" >> $GITHUB_OUTPUT
+        fi
           
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
@@ -40,7 +47,10 @@ jobs:
       uses: docker/build-push-action@v4
       with:
           context: ./
-          build-args: amule_version=${{ matrix.amule_version }}
+          build-args: |
+              amule_version=${{ matrix.amule_version }} 
+              image_tag=${{ steps.setValues.outputs.IMAGE_TAG }}
+              boost_library=${{ steps.setValues.outputs.BOOST_LIBRARY }}
           file: ./Dockerfile
           push: true
           platforms: ${{ matrix.platform }}

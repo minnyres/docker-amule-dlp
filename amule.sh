@@ -11,6 +11,8 @@ fi
 wget http://prdownloads.sourceforge.net/amule/aMule-2.3.3.tar.xz 
 tar -xf aMule-2.3.3.tar.xz 
 cd aMule-2.3.3 
+find . -name config.guess -exec cp /amule-build/config.guess {} \;
+find . -name config.sub -exec cp /amule-build/config.sub {} \;
 wget https://github.com/amule-project/amule/pull/298/commits/40810d2fba2c2092efca84ed7f2017fddbb70ebd.patch 
 patch -p1 < 40810d2fba2c2092efca84ed7f2017fddbb70ebd.patch 
 patch -p0  < /amule-build/amule-fix-exception.patch 
@@ -27,6 +29,8 @@ fi
 cd /amule-build 
 git clone https://github.com/persmule/amule-dlp.git 
 cd amule-dlp 
+find . -name config.guess -exec cp /amule-build/config.guess {} \;
+find . -name config.sub -exec cp /amule-build/config.sub {} \;
 wget https://github.com/amule-project/amule/pull/298/commits/40810d2fba2c2092efca84ed7f2017fddbb70ebd.patch 
 patch -p1 < 40810d2fba2c2092efca84ed7f2017fddbb70ebd.patch 
 patch -p0 < /amule-build/amule-fix-exception.patch 
