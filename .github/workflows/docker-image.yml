@@ -7,7 +7,7 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [linux/amd64, linux/arm/v6, linux/arm/v7, linux/arm64/v8, linux/ppc64le, linux/s390x, linux/riscv64, linux/loong64]
+        platform: [linux/amd64, linux/arm/v6, linux/arm/v7, linux/arm64/v8, linux/ppc64le, linux/s390x, linux/riscv64, linux/loong64, linux/mips64le]
         amule_version: [dlp, official-2.3.3]
 
     runs-on: ubuntu-latest
@@ -32,6 +32,9 @@ jobs:
         if [ ${{ matrix.platform }} = "linux/loong64" ]; then
           echo "IMAGE_TAG=loongarch64/alpine:3.19" >> $GITHUB_OUTPUT
           echo "BOOST_LIBRARY=boost1.84-system" >> $GITHUB_OUTPUT
+        elif [ ${{ matrix.platform }} = "linux/mips64le" ]; then
+          echo "IMAGE_TAG=loongnix/alpine:3.11" >> $GITHUB_OUTPUT
+          echo "BOOST_LIBRARY=" >> $GITHUB_OUTPUT        
         else
           echo "IMAGE_TAG=alpine:edge" >> $GITHUB_OUTPUT
           echo "BOOST_LIBRARY=" >> $GITHUB_OUTPUT

@@ -12,6 +12,7 @@ Supported architectures:
 * linux/ppc64le
 * linux/s390x
 * linux/riscv64
+* linux/mips64le
 
 ## Usage
 
