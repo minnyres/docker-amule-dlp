@@ -41,7 +41,7 @@ FROM ${image_tag}
 
 COPY --from=builder /app /usr
 
-ENV UID=1000 GID=1000 WEBUI=bootstrap ECPASSWD= TIMEZONE= RECURSIVE_SHARE= 
+ENV UID=1000 GID=1000 WEBUI=bootstrap ECPASSWD= WEBPASSWD= TIMEZONE= RECURSIVE_SHARE= 
 
 COPY amule.conf run.sh /
 

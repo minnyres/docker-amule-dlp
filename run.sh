@@ -20,6 +20,13 @@ then
     sed -i "s/.*ECPassword=.*/ECPassword=$passwd/" $config
 fi
 
+if [ -n "$WEBPASSWD" ]
+then
+    echo "Change the password for amule web interface."
+    passwd=$(echo -n $WEBPASSWD | md5sum | cut -d ' ' -f 1)
+    sed -i "s/^Password=.*/Password=$passwd/" $config
+fi
+
 if [ "$RECURSIVE_SHARE" == "yes" ]
 then
     find /downloads -type d -not -empty \

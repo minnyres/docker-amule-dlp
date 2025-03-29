@@ -17,7 +17,7 @@ Supported architectures:
 ## Usage
 
 ### Docker-compose
-The recommended way is to use docker-compose. Create and edit the file `docker-compose.yml` as the template
+The recommended way is to use docker-compose. Create and edit the file `docker-compose.yml` as the [template](https://github.com/minnyres/docker-amule-dlp/blob/main/docker-compose.yml)
 
     version: '2.1'
     services:
@@ -31,6 +31,7 @@ The recommended way is to use docker-compose. Create and edit the file `docker-c
           - GID=1000
           - WEBUI=bootstrap
           - ECPASSWD=amule-passwd
+          - WEBPASSWD=amuleweb-passwd
           - TIMEZONE=Asia/Shanghai
           - RECURSIVE_SHARE=yes
         volumes:
@@ -60,13 +61,14 @@ Please carefully read the notes on the variables:
 | UID      |    User id    |  Given by `echo $UID` on the host system  |
 | GID   | Usergroup id        | Given by `echo $GID` on the host system     |
 | WEBUI   | Web UI theme   | Can be default, [bootstrap](https://github.com/pedro77/amuleweb-bootstrap-template) or [reloaded](https://github.com/MatteoRagni/AmuleWebUI-Reloaded)     |
-| ECPASSWD   |   Password for external connection     |  This is the password for aMule GUI but not web server. Set `ECPASSWD` is only necessary when you run aMule for the first time, or want to change the password. |
+| ECPASSWD   |   Password for external connection with aMule GUI or aMule CMD.    |  This setting is only necessary when you run aMule for the first time, or want to change the password. |
+| WEBPASSWD   |   Password for aMule web server.     |  This setting is only necessary when you run aMule for the first time, or want to change the password. |
 | TIMEZONE   | Time zone       |    |
 | RECURSIVE_SHARE   |   Whether to recursively share the files in the sub-folders of the path `<downloads>`     |   Can be `yes` or `no`  |
 
 ### Bridge network
 
-To use bridge network, one needs to manually define port mapping. Note that UPnP is not supprted under bridge network. 
+To use bridge network, one needs to manually define port mapping as the [template](https://github.com/minnyres/docker-amule-dlp/blob/main/docker-compose.bridge.yml) below. Note that UPnP is not supprted under bridge network. 
 
     version: '2.1'
     services:
@@ -86,6 +88,7 @@ To use bridge network, one needs to manually define port mapping. Note that UPnP
           - GID=1000
           - WEBUI=bootstrap
           - ECPASSWD=amule-passwd
+          - WEBPASSWD=amuleweb-passwd
           - TIMEZONE=Asia/Shanghai
           - RECURSIVE_SHARE=yes
         volumes:

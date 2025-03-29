@@ -10,6 +10,7 @@ services:
       - GID=1000
       - WEBUI=bootstrap
       - ECPASSWD=amule-passwd
+      - WEBPASSWD=amuleweb-passwd
       - TIMEZONE=Asia/Shanghai
       - RECURSIVE_SHARE=yes
     volumes:
