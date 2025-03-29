@@ -1,5 +1,5 @@
 # docker-amule-dlp
-[aMule](https://github.com/amule-project/amule) is an eMule-like client for the eDonkey and Kademlia networks. This project maintains docker containers for the aMule fork [amule-dlp](https://github.com/persmule/amule-dlp), which supports dynamic leech protection (DLP). Only aMule daemon and web server are enabled and GUI is disabled in the container. To control aMule, use aMule GUI for remote connection or use your web browswer to visit the web server.
+[aMule](https://github.com/amule-project/amule) is an eMule-like client for the eDonkey and Kademlia networks. This project maintains docker containers for the aMule fork [amule-dlp](https://github.com/persmule/amule-dlp), which supports dynamic leech protection (DLP). Only aMule daemon and Web UI are enabled, while the GUI components are disabled in the container. To control aMule, use aMule GUI for remote connection or use your Web browswer to visit the Web UI.
 
 Inspired by the work of [tetreum](https://github.com/tetreum/amule-docker), [tchabaud](https://github.com/tchabaud/dockerfiles/tree/master/amule) and [ngosang](https://github.com/ngosang/docker-amule).
 
@@ -43,7 +43,7 @@ Then, start the container with the command
 
     docker-compose up -d
 
-The default port to connect with aMule GUI is 4712, and the default port for aMule web control is 4711.
+The default port to connect with aMule GUI and aMule CMD is 4712, and the default port for aMule Web UI is 4711.
 
 ### Volume mapping
 
@@ -60,9 +60,9 @@ Please carefully read the notes on the variables:
 | :----:        |    :---     |         :---   |
 | UID      |    User id    |  Given by `echo $UID` on the host system  |
 | GID   | Usergroup id        | Given by `echo $GID` on the host system     |
-| WEBUI   | Web UI theme   | Can be default, [bootstrap](https://github.com/pedro77/amuleweb-bootstrap-template) or [reloaded](https://github.com/MatteoRagni/AmuleWebUI-Reloaded)     |
+| WEBUI   | Web UI theme   | Can be default, [bootstrap](https://github.com/pedro77/amuleweb-bootstrap-template), [adaptable](https://github.com/esaracho/amuleweb-adaptable) or [reloaded](https://github.com/MatteoRagni/AmuleWebUI-Reloaded)     |
 | ECPASSWD   |   Password for external connection with aMule GUI or aMule CMD.    |  This setting is only necessary when you run aMule for the first time, or want to change the password. |
-| WEBPASSWD   |   Password for aMule web server.     |  This setting is only necessary when you run aMule for the first time, or want to change the password. |
+| WEBPASSWD   |   Password for aMule Web UI.     |  This setting is only necessary when you run aMule for the first time, or want to change the password. |
 | TIMEZONE   | Time zone       |    |
 | RECURSIVE_SHARE   |   Whether to recursively share the files in the sub-folders of the path `<downloads>`     |   Can be `yes` or `no`  |
 
@@ -97,8 +97,8 @@ To use bridge network, one needs to manually define port mapping as the [templat
           - <temp>:/temp
 
 Meanings of the ports:
- + `4711` - port for aMule web server
- + `4712` - port for remote connection with aMule GUI
+ + `4711` - port for aMule Web UI
+ + `4712` - port for remote connection with aMule GUI and aMule CMD
  + `24662` - standard client TCP port
  + `24672` - extended client UDP port
  + `24665` - extended server request UDP port
@@ -114,4 +114,4 @@ This project also provides an image for official aMule. To run the latest offici
 
 The settings of aMule are stored in the file `<config>/amule.conf`. If the file already exists, aMule will use the existing configuration file. Otherwise, aMule will create a new configuration file according to the [default settings](https://github.com/minnyres/docker-amule-dlp/blob/main/amule.conf).
 
-To view and change the settings, one can connect to aMule with aMule GUI. Note that aMule GUI does not support to change the web UI theme and password for external connection, and it is recommended to set the two options by [docker-compose](https://github.com/minnyres/docker-amule-dlp#docker-compose).  
+To view and change the settings, one can connect to aMule with aMule GUI. Note that aMule GUI does not support to change the Web UI theme and password for external connection, and it is recommended to set the two options by [docker-compose](https://github.com/minnyres/docker-amule-dlp#docker-compose).  

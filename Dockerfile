@@ -28,7 +28,10 @@ RUN cd /amule-build \
     && mv amuleweb-bootstrap-template/dist /app/share/amule/webserver/bootstrap \
     && git clone https://github.com/MatteoRagni/AmuleWebUI-Reloaded \
     && rm -rf AmuleWebUI-Reloaded/.git* AmuleWebUI-Reloaded/doc-images \
-    && mv AmuleWebUI-Reloaded /app/share/amule/webserver/reloaded
+    && mv AmuleWebUI-Reloaded /app/share/amule/webserver/reloaded \
+    && git clone https://github.com/esaracho/amuleweb-adaptable \
+    && rm -rf amuleweb-adaptable/.git* \
+    && mv amuleweb-adaptable /app/share/amule/webserver/adaptable
 
 # Delete some files to reduce image size
 RUN cd /app/share \
